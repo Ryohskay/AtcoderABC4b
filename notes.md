@@ -84,6 +84,97 @@ min(2, 4)
 
 このことを気にする必要がある場面は少ないですが、次の節のように自分で関数を定義する場合はハマりどころになりうるので、頭の片隅においておきましょう。
 
+# 1.15 functions
+
+### Other Notes
+#### プロトタイプ宣言
+
+プロトタイプ宣言をすれば関数を定義する前に呼び出すことができます。
+プロトタイプ宣言とは、「関数の名前」と「引数と返り値の型」だけを先に宣言することです。
+
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// プロトタイプ宣言
+void hello();
+
+int main() {
+  // プロトタイプ宣言をしたので呼び出せる
+  hello();
+}
+
+void hello() {
+  cout << "hello!" << endl;
+  return;
+}
+```
+
+実行結果:
+```
+hello!
+```
+- プロトタイプ宣言の記法は次のようになります。
+```
+返り値の型 関数名(引数1の型 引数1の名前, 引数2の型 引数2の名前, ...);
+```
+
+#### 引数名の省略
+
+引数の名前は省略することもできます。
+例えば、my_min関数のプロトタイプ宣言は次のように書くこともできます。
+```cpp
+int my_min(int, int);
+```
+
+#### returnの省略
+
+返り値がない場合、関数の末尾ではreturnを省略できます。
+```cpp
+void hello(string text) {
+  cout << "Hello, " << text << "!" << endl;
+}
+```
+
+#### 関数のオーバーロード overloading
+「引数の型」または「引数の数」が異なる場合は、同じ名前の関数を定義することができます。これを関数のオーバーロードと言います。
+次のプログラムでは「2つの引数を取るmy_min関数」と「3つの引数を取るmy_min関数」を定義しています。
+```cpp
+#include <bits/stdc++.h>
+using namespace std;
+
+// 2つの引数のうち最も小さい値を返す
+int my_min(int x, int y) {
+  if (x < y) {
+    return x;
+  }
+  else {
+    return y;
+  }
+}
+
+// 3つの引数のうち最も小さい値を返す
+int my_min(int x, int y, int z) {
+  if (x < y && x < z) {
+    return x;
+  }
+  else if (y < x && y < z) {
+    return y;
+  }
+  else {
+    return z;
+  }
+}
+
+int main() {
+  int answer = my_min(10, 5); // 2つの引数
+  cout << answer << endl; // 5
+
+  answer = my_min(3, 2, 5); // 3つの引数
+  cout << answer << endl; // 2
+}
+```
+ただし、**返り値の型が異なるだけではオーバーロードできない**ことに注意してください。 
 
 [^1]: `vector<T> name(N);` 以外にも `T name[N]` (e.g. `int data[3]`) などで配列を初期化できるが、vector以外の表現にはいろいろと問題点や落とし穴があるので可能な限り避けるべき。ただし`T name[N]`に関しては他の人のソースコードでよく見るかも。
 [^2]: `vector<int>`の場合は全ての要素が0で初期化. `vector<string> vec(3)`の場合は空の文字列の配列`{"", "", ""}`で初期化
