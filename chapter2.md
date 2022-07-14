@@ -6,6 +6,7 @@
     - ループで書き直す
 
 ### Range `for` Loops
+[Microsoft's documentation](https://docs.microsoft.com/en-us/cpp/cpp/range-based-for-statement-cpp?view=msvc-170)
 配列の要素を取り出しながらループする範囲for文:
 
 ```
