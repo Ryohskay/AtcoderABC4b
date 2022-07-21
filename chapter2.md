@@ -42,3 +42,57 @@ int main() {
   }
 }
 ```
+
+# 2.04 Reference
+The reference syntax is simple.
+
+- Definition of refence variable 
+```
+int a = 50;
+int &b = a;  // reference
+```
+
+NB:
+- The variable referred to must be explicitly specified at initialisation/declaration.
+- The variable which we refer to cannot be change once declared.
+- Multiple reference variables can be pointed to the same variable (e.g. `&b` and `&c` both referring to `a`)
+
+Outstanding behaviour:
+- Pass VALUE to function(s)
+
+```cpp
+#include <bits/stdc++.h>
+  using namespace std;
+
+  int fn(int x) {
+    x = x * 2;  // multiply by 2
+    return x;  // return the value of x
+  }
+
+int main() {
+  int a = 3;  // the variable to be "called"
+  int b = fn(a);  // give the VALUE of a to fn(), put the value into b
+
+  cout << "a: " << a << endl;  // "a: 3"
+  cout << "b: " << b << endl;  // "b: 6"
+}
+```
+
+- Pass REFERENCE to function(s)
+```cpp
+#include <bits/stdc++.h>
+  using namespace std;
+
+  int g(int &x) {
+    x = x * 2;  // multiply by 2
+    return x;  // return the value of x
+  }
+
+int main() {
+  int a = 3;  // the variable to be "referred" to
+  int b = g(a);  // x (in the definition of g()) is now referring to "a"
+
+  cout << "a: " << a << endl;  // "a: 6"
+  cout << "b: " << b << endl;  // "b: 6"
+}
+```
